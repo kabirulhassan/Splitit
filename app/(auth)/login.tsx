@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
+import { login } from '../../utils/api';
 
 export default function LoginScreen(): JSX.Element {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const router = useRouter();
 
-    const handleLogin = async (): Promise<void> => {
+    const handleLogin = async () => {
         try {
+            await login(email, password);
             router.replace('/');
         } catch (error: any) {
             Alert.alert('Error', error.message);
